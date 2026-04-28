@@ -92,6 +92,7 @@ class _StateButtonDemoState extends State<StateButtonDemo> {
             _SectionLabel('1 · Primary filled'),
             const SizedBox(height: 10),
             StateButton(
+              loaderType: SbLoaderType.progressiveDots,
               controller: _primaryCtrl,
               width: double.infinity,
               onPressed: _onSubmit,

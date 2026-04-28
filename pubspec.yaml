@@ -1,7 +1,7 @@
 name: state_button
 description: "Flutter button with loading, success, and failure states with smooth animations"
 
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/ashiqu-ali/state_button
 repository: https://github.com/ashiqu-ali/state_button
 issue_tracker: https://github.com/ashiqu-ali/state_button/issues
@@ -19,6 +19,9 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
 
+screenshots:
+  - description: 'StateButton example showcasing idle, loading, success and failure phases'
+    path: assets/state_button_preview.png
 
 topics:
   - button

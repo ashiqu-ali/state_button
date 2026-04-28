@@ -30,6 +30,7 @@ An animated Flutter button that transitions through **idle → loading → succe
 - 🔒 Tap-lock during loading – no double-submission guard needed
 - 🔄 Auto-resets to idle after success or failure
 - 🎨 Fully customisable: colours, radius, shadow, size, duration
+- 🌀 **Six built-in loader styles** – from classic iOS spinner to modern animated dots
 - 📦 Zero external dependencies beyond Flutter itself
 
 ---
@@ -176,6 +177,35 @@ StateButton(
 
 ---
 
+## Loader Types
+
+`state_button` ships with **six built-in loading indicators** via `SbLoaderType`. Pass the desired style to the `loaderType` parameter — it defaults to `cupertinoSpinner` for full backward compatibility.
+
+```dart
+StateButton(
+  controller: _ctrl,
+  loaderType: SbLoaderType.spinningArc, // ← pick any style
+  onPressed: () async {
+    _ctrl.setLoading();
+    await Future.delayed(const Duration(seconds: 2));
+    _ctrl.setSuccess();
+  },
+  child: const Text('Submit'),
+)
+```
+
+| Loader | `SbLoaderType` value | Description |
+|--------|----------------------|-------------|
+| iOS-style spinner | `cupertinoSpinner` *(default)* | Uses `CupertinoActivityIndicator` — preserves original behaviour |
+| Circular progress | `circular` | Continuously rotating full-circle stroke via `CircularProgressIndicator` |
+| Wave dots | `dotsWave` | Three dots animated in a smooth sine-based wave with phase shifts |
+| Pulse dots | `dotsPulse` | Three dots that scale in and out sequentially — a rhythmic "breathing" effect |
+| Progressive dots | `progressiveDots` | Four dots shifting right-to-left; leading dot fades out as a new one appears |
+| Spinning arc | `spinningArc` | A partial arc with a rounded cap that rotates — modern and minimal |
+
+
+---
+
 ## API Reference
 
 ### `SbController`
@@ -195,6 +225,19 @@ StateButton(
 enum SbPhase { idle, loading, success, failure }
 ```
 
+### `SbLoaderType`
+
+```dart
+enum SbLoaderType {
+  cupertinoSpinner, // default
+  circular,
+  dotsWave,
+  dotsPulse,
+  progressiveDots,
+  spinningArc,
+}
+```
+
 ### `StateButton` parameters
 
 | Parameter | Type | Default | Description |
@@ -202,6 +245,7 @@ enum SbPhase { idle, loading, success, failure }
 | `controller` | `SbController` | **required** | Drives phase transitions |
 | `onPressed` | `VoidCallback` | **required** | Called on tap (idle phase only) |
 | `child` | `Widget` | `Text('Submit')` | Widget shown in idle phase |
+| `loaderType` | `SbLoaderType` | `cupertinoSpinner` | Style of loading indicator shown during loading phase |
 | `width` | `double?` | `null` | Fixed width; `null` = stretch |
 | `height` | `double` | `52` | Fixed height in logical pixels |
 | `padding` | `EdgeInsetsGeometry` | `h:24 v:12` | Inner padding |

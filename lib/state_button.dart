@@ -28,5 +28,6 @@
 library state_button;
 
 export 'src/core/sb_controller.dart';
+export 'src/core/sb_loader_type.dart';
 export 'src/core/sb_types.dart';
 export 'src/widgets/state_button.dart';
