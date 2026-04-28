@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../core/sb_types.dart';
-import '../indicators/sb_failure_indicator.dart';
-import '../indicators/sb_success_indicator.dart';
+import '../core/index.dart';
+import '../indicators/index.dart';
 
 /// Internal widget that switches between the four content states using
 /// [AnimatedSwitcher].  Not part of the public API.
@@ -22,6 +21,7 @@ class SbContentSwitcher extends StatelessWidget {
     required this.animationDuration,
     required this.autoResetDuration,
     required this.onAutoReset,
+    this.loaderType = SbLoaderType.cupertinoSpinner,
   });
 
   /// Current [SbPhase] coming from [SbController].
@@ -52,6 +52,9 @@ class SbContentSwitcher extends StatelessWidget {
   /// call [SbController.setIdle] after displaying.
   final VoidCallback onAutoReset;
 
+  /// The type of loading indicator to show during [SbPhase.loading].
+  final SbLoaderType loaderType;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
@@ -72,9 +75,10 @@ class SbContentSwitcher extends StatelessWidget {
       case SbPhase.loading:
         return KeyedSubtree(
           key: const ValueKey('sb_loading'),
-          child: CupertinoActivityIndicator(
+          child: SbLoadingIndicator(  
+            type: loaderType,
             color: loadingColor,
-            radius: indicatorSize / 2,
+            size: indicatorSize,
           ),
         );
 

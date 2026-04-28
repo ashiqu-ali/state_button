@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/sb_controller.dart';
-import '../core/sb_types.dart';
+import '../core/index.dart';
 import 'sb_content_switcher.dart';
 
 /// A fully-animated button that transitions through four visual phases:
@@ -65,6 +64,8 @@ class StateButton extends StatelessWidget {
     // ── Timing ────────────────────────────────────────────────────────────
     this.autoResetDuration = const Duration(milliseconds: 1800),
     this.animationDuration = const Duration(milliseconds: 300),
+    // ── Loader ────────────────────────────────────────────────────────────
+    this.loaderType = SbLoaderType.cupertinoSpinner,
   });
 
   // ── Required ──────────────────────────────────────────────────────────────
@@ -166,6 +167,31 @@ class StateButton extends StatelessWidget {
   /// [AnimatedSwitcher] content crossfade.  Defaults to `300 ms`.
   final Duration animationDuration;
 
+  // ── Loader ────────────────────────────────────────────────────────────────
+
+  /// The style of loading indicator displayed during [SbPhase.loading].
+  ///
+  /// Defaults to [SbLoaderType.cupertinoSpinner] which preserves the original
+  /// iOS-style spinning indicator behaviour.
+  ///
+  /// Choose from:
+  /// - [SbLoaderType.cupertinoSpinner] — iOS-style spinning ticks
+  /// - [SbLoaderType.circular]         — Material circular progress indicator
+  /// - [SbLoaderType.dotsWave]         — Three dots waving up and down
+  /// - [SbLoaderType.dotsPulse]        — Three dots pulsing in and out
+  /// - [SbLoaderType.spinningArc]      — Single arc spinning with rounded cap
+  ///
+  /// Example:
+  /// ```dart
+  /// StateButton(
+  ///   controller: _controller,
+  ///   onPressed: _handlePress,
+  ///   loaderType: SbLoaderType.dotsWave,
+  ///   child: const Text('Submit'),
+  /// )
+  /// ```
+  final SbLoaderType loaderType;
+
   // ── Build ─────────────────────────────────────────────────────────────────
 
   @override
@@ -215,6 +241,7 @@ class StateButton extends StatelessWidget {
                     animationDuration: animationDuration,
                     autoResetDuration: autoResetDuration,
                     onAutoReset: controller.setIdle,
+                    loaderType: loaderType,
                   ),
                 ),
               ),
